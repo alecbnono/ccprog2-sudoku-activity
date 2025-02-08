@@ -89,7 +89,8 @@ int
 main()
 {   int aMatrix[SIZE][SIZE];
     /* you can add your own variables */
-	int i, row_checker = 1, col_checker = 1, box_checker = 1;
+	int row, col, box, box_row, box_col; 
+	int row_checker = 1, col_checker = 1, box_checker = 1;
 
     /* call getInput().  It is encouraged that you use
        input redirection, so you do not need to keep 
@@ -108,10 +109,14 @@ main()
 	/* call function checkrow() multiple times in loop.
 	   Note that checkrow() will check one row at a time.
 	*/
-	i = 0;
-	while(row_checker && i < SIZE)
-		if(!checkrow(aMatrix[i]))
+	row = 0;
+	while(row_checker && row < SIZE)
+	{
+		if(!checkrow(aMatrix[row]))
 			row_checker = 0;
+		else
+			row++;
+	}
 	
 	/* write your condition to execute the following only 
 	   if all rows are still correct.  Call function
@@ -120,10 +125,14 @@ main()
 	*/
 	if (row_checker)
 	{
-		i = 0;
-		while(col_checker && i < SIZE)
-			if(!checkcol(aMatrix, i))
+		col = 0;
+		while(col_checker && col < SIZE)
+		{
+			if(!checkcol(aMatrix, col))
 				col_checker = 0;
+			else
+				col++;
+		}
 	}
 	/* write your condition to execute the following only 
 	   if all rows and columns are still correct.  Call 
@@ -132,7 +141,24 @@ main()
 	*/
 	if(row_checker && col_checker)
 	{
-
+		box = 1;
+		box_row = 0;
+		box_col = 0;
+		while(box_checker && box_row < SIZE)
+		{
+			while (box_checker && box_col < SIZE)
+			{
+				if(!checkbox(aMatrix, box_row, box_col))
+					box_checker = 0;
+				else
+					box_col += 3;
+			}
+			if(box_checker)
+			{
+				box_row += 3;
+				box++;
+			}
+		}	
 	}
 
 	/* if the matrix is a correctly solved Sudoku puzzle, 
@@ -144,7 +170,15 @@ main()
 	if(row_checker && col_checker && box_checker)
 		printf("Sudoku!");
 	else
-		printf("Wrong Solution.");
-
+	{
+		printf("Wrong Solution on: ");
+		if(col_checker && box_checker)
+			printf("Row %d", row);
+		else if (row_checker && box_checker)
+			printf("Column %d", col);
+		else if (row_checker && col_checker)
+			printf("Box %d", box);
+	}
+	
     return 0;
 }
