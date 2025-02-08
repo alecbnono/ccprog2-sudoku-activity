@@ -89,6 +89,7 @@ int
 main()
 {   int aMatrix[SIZE][SIZE];
     /* you can add your own variables */
+	int i, row_checker = 1, col_checker = 1, box_checker = 1;
 
     /* call getInput().  It is encouraged that you use
        input redirection, so you do not need to keep 
@@ -96,35 +97,54 @@ main()
        the input values to consider other test cases OR
        create other files of input values per test case.
     */
+	getInput(aMatrix);
 
 	/* call displayAll() to verify that you got the inputs 
 	   correctly.  Note the expected format of the displayed
 	   result.
 	*/ 
+	displayAll(aMatrix);
 	
 	/* call function checkrow() multiple times in loop.
 	   Note that checkrow() will check one row at a time.
 	*/
+	i = 0;
+	while(row_checker && i < SIZE)
+		if(!checkrow(aMatrix[i]))
+			row_checker = 0;
 	
 	/* write your condition to execute the following only 
 	   if all rows are still correct.  Call function
 	   checkcol() mutiple times in a loop. checkcol() will
 	   check one column at a time.
 	*/
-	
+	if (row_checker)
+	{
+		i = 0;
+		while(col_checker && i < SIZE)
+			if(!checkcol(aMatrix, i))
+				col_checker = 0;
+	}
 	/* write your condition to execute the following only 
 	   if all rows and columns are still correct.  Call 
 	   function checkbox() mutiple times as the function will
 	   check one 3x3 box at a time.
 	*/
-	
-	
+	if(row_checker && col_checker)
+	{
+
+	}
+
 	/* if the matrix is a correctly solved Sudoku puzzle, 
 	   display "Sudoku!".  Otherwise display "Wrong Solution". 
 	   While debugging, it is suggested that you include
 	   in the display which row or column or box the  
 	   wrong solution was [first] detected. 
 	*/
+	if(row_checker && col_checker && box_checker)
+		printf("Sudoku!");
+	else
+		printf("Wrong Solution.");
 
     return 0;
 }
