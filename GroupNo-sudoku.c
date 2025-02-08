@@ -10,7 +10,41 @@
 		   Complete the main program based on the 
 		   comments indicated.
 */
+int isInRange(int num)
+{
+    int retval = 0;
+    if (num >= 1 && num <= 9)
+    {
+        retval = 1;
+    }
+    return retval;
+}
 
+
+void displayRow(int aRow[])
+{
+	int col;
+
+	for (col = 0; col < SIZE; col++)
+	{
+		printf("%d ", aRow[col]);
+		if ((col + 1) % 3 == 0)
+			printf("   ");
+	}
+	printf("\n");		
+}
+
+void displayAll(int aMatrix[][SIZE])
+{
+	int row;
+	
+	for(row = 0; row < SIZE; row++)
+	{
+		displayRow(aMatrix[row]);
+		if ((row + 1) % 3 == 0)
+			printf("\n");
+	}	
+}
 
 int
 main()
