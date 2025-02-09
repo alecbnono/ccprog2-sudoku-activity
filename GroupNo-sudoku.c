@@ -113,6 +113,7 @@ int checkbox(int aMatrix[][SIZE], int nRow, int nCol)
 {
 
         int i = 0;
+        int j = 0;
         int colMax = nCol + 3;
         int rowMax = nRow + 3;
         int returnval = 1;
@@ -128,19 +129,23 @@ int checkbox(int aMatrix[][SIZE], int nRow, int nCol)
         //[5,7]
         //[5,8]
 
-        while (returnval && nRow < rowMax)
+        while (nRow < rowMax)
         {
                 while(returnval && nCol < colMax)
                 {
                         temp[i] = aMatrix[nRow][nCol];
-                        printf("[%d][%d]\n", nRow, nCol);
                         nCol++;
                         i++;
                 }
                 nCol -= 3;
                 nRow++;
-                if(Search(i + 1, temp, SIZE) != 1)
+        }
+
+        while(j < SIZE && returnval)
+        {
+                if(Search(j + 1, temp, SIZE) != 1)
                         returnval = 0;
+                j++;
         }
 
 	
@@ -208,6 +213,7 @@ main()
 		box_col = 0;
 		while(box_checker && box_row < SIZE)
 		{
+                        box_col = 0;
 			while (box_checker && box_col < SIZE)
 			{
 				if(!checkbox(aMatrix, box_row, box_col))
