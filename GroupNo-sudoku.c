@@ -90,22 +90,21 @@ int checkrow(int aData[])
 
 int checkcol(int aMatrix[][SIZE], int nColInd)
 {
-        int i = 0;
-        int j;
+        int i;
+        int j = 0;
         int returnval = 1;
         int temp[9];
-        while(returnval && i < SIZE)
-	{
-                for(j = 0; j < SIZE; j++)
-                {
-                        temp[j] = aMatrix[j][i];
-                }
 
-		if(Search(i + 1, temp, SIZE) != 1)
+        for(i = 0; i < SIZE; i++)
+                temp[i] = aMatrix[i][nColInd];
+
+        while(returnval && j < SIZE)
+	{
+		if(Search(j + 1, temp, SIZE) != 1)
 			returnval = 0;
-		
-		i++;
+		j++;
 	}
+
     return returnval;
 }
 
@@ -118,16 +117,6 @@ int checkbox(int aMatrix[][SIZE], int nRow, int nCol)
         int rowMax = nRow + 3;
         int returnval = 1;
         int temp[9];
-
-        //[3,6]
-        //[3,7]
-        //[3,8]
-        //[4,6]
-        //[4,7]
-        //[4,8]
-        //[5,6]
-        //[5,7]
-        //[5,8]
 
         while (nRow < rowMax)
         {
@@ -208,7 +197,7 @@ main()
 	*/
 	if(row_checker && col_checker)
 	{
-		box = 1;
+		box = 0;
 		box_row = 0;
 		box_col = 0;
 		while(box_checker && box_row < SIZE)
@@ -216,15 +205,18 @@ main()
                         box_col = 0;
 			while (box_checker && box_col < SIZE)
 			{
+                                printf("[%d][%d]\n",box_row, box_col);
 				if(!checkbox(aMatrix, box_row, box_col))
 					box_checker = 0;
 				else
+                                {
 					box_col += 3;
+                                        box++;
+                                }
 			}
 			if(box_checker)
 			{
 				box_row += 3;
-				box++;
 			}
 		}	
 	}
