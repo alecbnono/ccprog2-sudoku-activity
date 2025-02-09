@@ -25,6 +25,8 @@ void getInput(int aMatrix[][SIZE])
 	int i, j, temp;
 
 	for(i = 0; i < SIZE; i++)
+        {
+                j = 0;
 		while (j < SIZE)
 		{
 			scanf("%d", &temp);
@@ -34,6 +36,7 @@ void getInput(int aMatrix[][SIZE])
 				j++;
 			}
 		}
+        }
 }
 
 void displayRow(int aRow[])
@@ -85,7 +88,7 @@ int checkrow(int aData[])
     return returnval;
 }
 
-int checkcol(int aData[][SIZE], int nColInd)
+int checkcol(int aMatrix[][SIZE], int nColInd)
 {
         int i = 0;
         int j;
@@ -95,7 +98,7 @@ int checkcol(int aData[][SIZE], int nColInd)
 	{
                 for(j = 0; j < SIZE; j++)
                 {
-                        temp[j] = aData[j][i];
+                        temp[j] = aMatrix[j][i];
                 }
 
 		if(Search(i + 1, temp, SIZE) != 1)
@@ -108,7 +111,40 @@ int checkcol(int aData[][SIZE], int nColInd)
 
 int checkbox(int aMatrix[][SIZE], int nRow, int nCol)
 {
-        return 0;
+
+        int i = 0;
+        int colMax = nCol + 3;
+        int rowMax = nRow + 3;
+        int returnval = 1;
+        int temp[9];
+
+        //[3,6]
+        //[3,7]
+        //[3,8]
+        //[4,6]
+        //[4,7]
+        //[4,8]
+        //[5,6]
+        //[5,7]
+        //[5,8]
+
+        while (returnval && nRow < rowMax)
+        {
+                while(returnval && nCol < colMax)
+                {
+                        temp[i] = aMatrix[nRow][nCol];
+                        printf("[%d][%d]\n", nRow, nCol);
+                        nCol++;
+                        i++;
+                }
+                nCol -= 3;
+                nRow++;
+                if(Search(i + 1, temp, SIZE) != 1)
+                        returnval = 0;
+        }
+
+	
+    return returnval;
 }
 
 int
@@ -199,12 +235,14 @@ main()
 	{
 		printf("Wrong Solution on: ");
 		if(col_checker && box_checker)
-			printf("Row %d", row);
+			printf("Row %d", row + 1);
 		else if (row_checker && box_checker)
-			printf("Column %d", col);
+			printf("Column %d", col + 1);
 		else if (row_checker && col_checker)
-			printf("Box %d", box);
+			printf("Box %d", box + 1);
 	}
+
+        printf("\n");
 	
     return 0;
 }
