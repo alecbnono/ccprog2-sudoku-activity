@@ -85,6 +85,32 @@ int checkrow(int aData[])
     return returnval;
 }
 
+int checkcol(int aData[][SIZE], int nColInd)
+{
+        int i = 0;
+        int j;
+        int returnval = 1;
+        int temp[9];
+        while(returnval && i < SIZE)
+	{
+                for(j = 0; j < SIZE; j++)
+                {
+                        temp[j] = aData[j][i];
+                }
+
+		if(Search(i + 1, temp, SIZE) != 1)
+			returnval = 0;
+		
+		i++;
+	}
+    return returnval;
+}
+
+int checkbox(int aMatrix[][SIZE], int nRow, int nCol)
+{
+        return 0;
+}
+
 int
 main()
 {   int aMatrix[SIZE][SIZE];
