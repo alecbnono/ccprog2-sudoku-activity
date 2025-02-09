@@ -205,7 +205,6 @@ main()
                         box_col = 0;
 			while (box_checker && box_col < SIZE)
 			{
-                                printf("[%d][%d]\n",box_row, box_col);
 				if(!checkbox(aMatrix, box_row, box_col))
 					box_checker = 0;
 				else
